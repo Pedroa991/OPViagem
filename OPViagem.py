@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 
 global version
-version = 'V1.0'
+version = 'V1.1'
 
-def main(pathBD, pathLogOP, pathDestino):
+def main(pathBD, pathLogOP):
 
     print('Cargill OPViagem ', version)
     
@@ -40,7 +40,7 @@ def main(pathBD, pathLogOP, pathDestino):
         SiteAnt = Site
     
 
-    df_BD.to_excel(pathDestino + '/output.xlsx', index=False)
+    df_BD.to_excel(pathBD, index=False)
     
     return True
 
