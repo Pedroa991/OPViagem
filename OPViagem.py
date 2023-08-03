@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 global version
-version = 'V1.1'
+version = 'V1.3'
 
 def main(pathBD, pathLogOP):
 
@@ -29,10 +29,20 @@ def main(pathBD, pathLogOP):
 
         df_BD.loc[((df_BD['Timestamp']>= DataPartida) & (df_BD['Timestamp']<= DataChegada) & 
                    (df_BD['Site'] == Site)), 'Modo de Operação'] = Destino
+        
+        if Destino == 'Santarem':
+            df_BD.loc[((df_BD['Timestamp']>= DataPartida) & (df_BD['Timestamp']<= DataChegada) & 
+                   (df_BD['Site'] == Site)), 'IDViagem'] = 'STM - '+ str(DataPartida)
+        elif Destino == 'Miritituba':
+            df_BD.loc[((df_BD['Timestamp']>= DataPartida) & (df_BD['Timestamp']<= DataChegada) & 
+                   (df_BD['Site'] == Site)), 'IDViagem'] = 'MTB - ' + str(DataPartida)
 
         if DestinoAnt == 'Miritituba' and SiteAnt == Site:
             df_BD.loc[((df_BD['Timestamp'] >= DataChegadaAnt) & (df_BD['Timestamp'] <= DataPartida) & 
                        (df_BD['Site'] == Site)), 'Modo de Operação'] = 'Manobra'
+            
+            df_BD.loc[((df_BD['Timestamp'] >= DataChegadaAnt) & (df_BD['Timestamp'] <= DataPartida) & 
+                       (df_BD['Site'] == Site)), 'IDViagem'] = 'MNB - ' + str(DataChegadaAnt)
         
 
         DestinoAnt = Destino
@@ -40,7 +50,7 @@ def main(pathBD, pathLogOP):
         SiteAnt = Site
     
 
-    df_BD.to_excel(pathBD, index=False)
+    df_BD.to_csv(pathBD, index=False, encoding='utf-8-sig')
     
     return True
 
