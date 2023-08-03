@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 global version
-version = 'V1.3'
+version = 'V1.4'
 
 def main(pathBD, pathLogOP):
 
@@ -28,7 +28,7 @@ def main(pathBD, pathLogOP):
         Destino = df_LogOP.loc[LinhaOP, 'Destino']
 
         df_BD.loc[((df_BD['Timestamp']>= DataPartida) & (df_BD['Timestamp']<= DataChegada) & 
-                   (df_BD['Site'] == Site)), 'Modo de Operação'] = Destino
+                   (df_BD['Site'] == Site)), 'Modo_de_Operação'] = Destino
         
         if Destino == 'Santarem':
             df_BD.loc[((df_BD['Timestamp']>= DataPartida) & (df_BD['Timestamp']<= DataChegada) & 
@@ -39,7 +39,7 @@ def main(pathBD, pathLogOP):
 
         if DestinoAnt == 'Miritituba' and SiteAnt == Site:
             df_BD.loc[((df_BD['Timestamp'] >= DataChegadaAnt) & (df_BD['Timestamp'] <= DataPartida) & 
-                       (df_BD['Site'] == Site)), 'Modo de Operação'] = 'Manobra'
+                       (df_BD['Site'] == Site)), 'Modo_de_Operação'] = 'Manobra'
             
             df_BD.loc[((df_BD['Timestamp'] >= DataChegadaAnt) & (df_BD['Timestamp'] <= DataPartida) & 
                        (df_BD['Site'] == Site)), 'IDViagem'] = 'MNB - ' + str(DataChegadaAnt)
